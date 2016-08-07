@@ -1,5 +1,5 @@
 {
-  "name": "webpack-dev-middleware-demo",
+  "name": "webpack-hot-middleware-demo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,6 +12,7 @@
   "dependencies": {
     "express": "^4.14.0",
     "webpack": "^1.13.1",
-    "webpack-dev-middleware": "^1.6.1"
+    "webpack-dev-middleware": "^1.6.1",
+    "webpack-hot-middleware": "^2.12.2"
   }
 }

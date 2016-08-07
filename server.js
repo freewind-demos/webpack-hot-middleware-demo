@@ -7,17 +7,9 @@ const app = express();
 const compiler = webpack(webpackConfig);
 
 app.use(webpackDevMiddleware(compiler, {
-  // all options optional
-
-  // display no info to console (only warnings and errors)
-  noInfo: false,
-
-  // display nothing to the console
-  quiet: false,
-
-  // switch into lazy mode
-  // that means no watching, but recompilation on every request
-  lazy: true,
+  // Notice!
+  // lazy must be `false` to make `webpack-hot-middleware` work
+  lazy: false,
 
   // watch options (only lazy: false)
   watchOptions: {
@@ -25,17 +17,12 @@ app.use(webpackDevMiddleware(compiler, {
     poll: true
   },
 
-  // public path to bind the middleware to
-  // use the same as in webpack
-  publicPath: "/assets/",
+  publicPath: webpackConfig.output.publicPath
 
-  // custom headers
-  headers: { "X-Custom-Header": "yes" },
+}));
 
-  // options for formating the statistics
-  stats: {
-    colors: true
-  }
+app.use(require('webpack-hot-middleware')(compiler, {
+  log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000
 }));
 
 app.use(express.static('./public'));
